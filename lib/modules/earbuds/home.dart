@@ -6,6 +6,8 @@ import 'dart:io';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sparkle/modules/earbuds/voice_player.dart';
+import 'package:sparkle/modules/earbuds/voice_record.dart';
 
 
 class KaraokeApp extends StatelessWidget {
@@ -14,6 +16,7 @@ class KaraokeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Karaoke App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -122,7 +125,51 @@ class _KaraokeScreenState extends State<KaraokeScreen> {
     _player.dispose();
     super.dispose();
   }
-
+  // Function to build the beautiful navigation button
+  Widget _buildNavigateButton() {
+    return GestureDetector(
+      onTap: () {
+        if (_filePath != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const VoiceRecorderScreen(),//VoicePlaybackScreen(filePath: _filePath!),
+            ),
+          );
+        }
+      },
+      child: Container(
+        height: 60,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Colors.purpleAccent, Colors.blueAccent],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blueAccent.withOpacity(0.5),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: const Center(
+          child: Text(
+            'Play Recorded Voice',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.5,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,8 +235,13 @@ class _KaraokeScreenState extends State<KaraokeScreen> {
                     color: Colors.redAccent,
                   ),
                 ),
+
+                const SizedBox(height: 40),
+                // Beautiful button to navigate to the voice playback screen
+
               ],
             ),
+            _buildNavigateButton(),
           ],
         ),
       ),

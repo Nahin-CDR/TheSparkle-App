@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sparkle/sound/home.dart';
+import 'package:sparkle/modules/earbuds/home.dart';
 import 'package:sparkle/themeController.dart';
 import 'screen1.dart';
 
