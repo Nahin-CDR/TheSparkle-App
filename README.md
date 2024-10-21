@@ -1,4 +1,4 @@
-# Karaoke App - Earbuds Branch
+# Earbuds Testing
 
 ## Overview
 
